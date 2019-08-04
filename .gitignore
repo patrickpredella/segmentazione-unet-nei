@@ -1,2 +1,4 @@
 # Ignore dataset folder
 dataset/*/
+
+.ipynb_checkpoints/

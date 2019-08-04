@@ -4,6 +4,8 @@
 
 ```
 conda env create -f environment.yml
+conda activate tensorflow_env
+jupyter notebook
 ```
 
 2. Copy dataset in dataset folder
