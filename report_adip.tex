@@ -1,0 +1,546 @@
+%author: Edoardo Manneschi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%12pt: grandezza carattere
+                                        %a4paper: formato a4
+                                        %report: stile tesi (oppure book)
+\documentclass[12pt,a4paper,oneside]{report} %12pt
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per scrivere in italiano
+\usepackage[english]{babel}
+\usepackage{placeins}
+\usepackage{eurosym}
+\usepackage{subfig}
+\usepackage{url}
+\usepackage{color}
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{multicol}
+\usepackage{graphicx}
+
+
+\usepackage{fancyhdr}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[applemac]{inputenc}
+\usepackage[latin1]{inputenc} 
+\usepackage[T1]{fontenc} 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per avere l'indentazione
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   all'inizio dei capitoli, ...
+\usepackage{indentfirst}
+%
+%%%%%%%%%libreria per mostrare le etichette
+%\usepackage{showkeys}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per inserire grafici
+\usepackage{graphicx}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%libreria per utilizzare font
+                                        %   particolari ad esempio
+                                        %   \textsc{}
+\usepackage{newlfont}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%librerie matematiche
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{chngcntr}
+\usepackage{wrapfig}%%%%%%%%%%wwwwwwwwwwewewewew
+
+
+
+%
+%\oddsidemargin=30pt \evensidemargin=20pt                                      %impostano i margini
+\hyphenation{sil-la-ba-zio-ne pa-ren-te-si}%serve per la sillabazione: tra parentesi 
+					   %vanno inserite come nell'esempio le parole 
+%					   %che latex non riesce a tagliare nel modo giusto andando a capo.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%comandi per l'impostazione
+                                        %   della pagina, vedi il manuale
+                                        %   della libreria fancyhdr
+                                        %   per ulteriori delucidazioni
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\linespread{1.2}                   %1.3     %comando per impostare l'interlinea
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%definisce nuovi comandi
+%
+%margini
+\textheight 22.5cm
+\topmargin -0.3cm
+%package ed esempio tema per code hinting
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue},
+  escapeinside={(*@}{@*)}
+}
+
+
+\begin{document} % inizio del documento
+%FRONTESPIZIO
+\begin{titlepage}
+
+\begin{figure}[ht]                       %crea l'ambiente figura; [h] sta
+                                        %   per here, cioÃ¨ la figura va qui
+\begin{center}   
+
+\includegraphics[scale=.45]{LOGO_UNISI_VERTICALE_NERO_1.pdf}
+\end{center}
+\begin{center}   
+
+{{\Large{\textbf{UNIVERSITY OF SIENA\\}}}}
+{{\Large{\textbf{1240}}}}
+\end{center}
+\end{figure}
+
+\begin{center}
+
+{{\Large{\textsc{Department of Information Engineering and Mathematics}}}}
+\rule[0.1cm]{12cm}{0.1mm}
+\rule[0.5cm]{12cm}{0.6mm}
+\renewcommand*\rmdefault{cmss}
+\\{{\LARGE{ELECTRONICS AND COMMUNICATIONS 
+\vspace{0.01mm}\begin{center}ENGINEERING\end{center}}}}
+\end{center}
+\begin{center}course code: 109146D\end{center}
+
+
+\vspace{1mm}
+\begin{center}
+\begin{huge}
+AUTOMATIC SKIN LESION SEGMENTATION WITH UNET \\%%%%%%%%%%%%TITLE
+\end{huge}
+\end{center}
+\vspace{21mm}
+\par
+\noindent
+\hfill
+\begin{minipage}[t]{0.68\textwidth}\raggedleft
+{\large{\bf Students:\\
+EDOARDO MANNESCHI [084660]\\
+PATRICK PREDELLA [086758]\\
+ILIR GASHI [089584]\\}}
+\end{minipage}
+\vspace{5mm} %modificare questo valore in caso il frontespizio non entri in una sola pagina
+\vfill
+\begin{center}
+{\large{\bf 
+Academic Year 2018-2019}}%inserire l'anno accademico a cui si Ã¨ iscritti
+\end{center}
+\end{titlepage}
+
+%END FRONTESPIZIO
+\newpage
+
+\pagenumbering{roman}   
+\tableofcontents %indice
+
+
+%%% Possibili scelte per la numerazione
+%arabic: arabic numerals
+%roman: lowercase roman numerals
+%Roman: uppercase roman numerals
+%alph: lowercase letters
+%Alph: uppercase letters
+%
+
+\newpage%\null\thispagestyle{empty}\newpage
+\pagenumbering{arabic} 
+ 
+\chapter*{Abstract}
+\markboth{Abstract}{Abstract}
+\addcontentsline{toc}{chapter}{Abstract} 
+\setcounter{secnumdepth}{0}
+
+{\large{\bf Objective}}\\
+
+In this paper, a skin lesion segmentation system is proposed. Semantic segmentation is a fundamental research in the study of skin lesions and since segmentation is the first part of it, it can radically affect the final outcome.
+\\
+\\
+{\large{\bf Methods}}\\
+
+In particular this study presents a skin lesions segmentation with CNN. The numerous different shapes and scales of skin lesion regions are the main challenging task.
+Deep convolutional neural networks (CNNs) are potent, general and execute very various tasks on an immense plethora of technological applications. Here we demonstrate its usage for the segmentation of skin lesions, using a particular CNN architecture called U-Net, trained on the International Skin Imaging Collaboration (ISIC) 2018 Archive.
+\\
+\\
+{\large{\bf Results}}\\
+ 
+Our proposed method, based on U-Net and Skin Imaging Collaboration (ISIC) 2018 Archive, accomplishes an overall pixel accuracy of 0.9418:1\\
+\\
+{\large{\bf Conclusions}}\\
+
+Our proposed U-Net architecture, run on our desktop machine averages a processing time of 1/1000th of a second for a 256x256 image.
+\\
+\\
+{\bf -KEY WORDS-} Skin lesion, U-Net, Convolutional Neural Network (CNN), ISIC 2018 
+
+\chapter*{Introduction}
+\markboth{Introduction}{Introduction}
+\addcontentsline{toc}{chapter}{Introduction} 
+\setcounter{secnumdepth}{0
+}
+The most frequent form of cancer is skin cancer and according to the \\ \textbf{AIRTUM} (\textit {Italian Cancer Registry Association}), in Italy every year there are 7300 new cases 
+among men and 6700 among women. Cancer occurs when cells in the body mutate and begin growing out of control. If cancer cells stay in the body long enough, they can invade nearby 
+areas and spread to other parts of the body (\textit {metastasis}).[1]
+\newline
+
+Skin cancer is a disease that originates in the cells of the skin. The area of skin presenting the cancer is often called \textit {lesion}. There are several types of skin cancer, or \textit {carcinoma}. 
+The most dangerous is the \textit {Melanoma} (from melanocytes), but there are several other forms, known as \textit {non-melanoma} (from keranocytes). These include:
+\textit {Basal cell carcinoma, Squamous cell carcinoma, Merkel cell carcinoma, Cutaneous T-cell lymphoma, Kaposi sarcoma}.[2] \figurename~\ref{fig:skinlesion} depicts some 
+example of skin lesions.
+\vspace{15mm}
+\begin{figure}[h!]
+\begin{center}
+  \includegraphics[height=30mm, width=30mm]{skin1.png}
+  \includegraphics[height=30mm, width=30mm]{skin2.png}
+  \includegraphics[height=30mm, width=30mm]{skin3.png}
+ \caption{Skin lesions}
+\label{fig:skinlesion}
+\end{center}
+\end{figure}
+
+Melanoma and non-melanoma skin cancers have been increasing over the past years and from 2008 to 2018 the annual number of cases has increased by 53\%, partly because of 
+increased UV exposure. Currently, around 3 million non-melanoma skin cancers and 132,000 melanoma skin cancers occur globally each year. 
+Early detection, accurate diagnosis and treatment of skin lesion is crucial, in particular for melanoma. It can help more than 95\% of the affected people.[3] 
+\newline
+
+To detect melanoma, the current standard practice is the dermoscopic evaluation of melanocytic lesions. Dermatologists specialised in skin diseases visit patients and evaluate new or evolving lesions. 
+\newline
+
+The first step in the diagnosis is a clinical screening, followed by a dermoscopic analysis, a biopsy and histopathological examination.
+Specific features are detected to help dermatologists decide the risk of melanoma. 
+Well-trained clinicians use high resolution imaging to evaluate the possibility of melanoma at very early stages and can obtain a diagnostic accuracy as high as 80\%. 
+We should have in mind that diagnostic accuracy correlates strongly with the professional experience of the physician and without additional technical support, dermatologists have a 
+65\% - 80\% accuracy rate in melanoma diagnosis. 
+This is due to the fact that the manual segmentation process is labor intensive and subjective. However doctors are scarce in boundaries, the blurry and irregular boundary 
+degrade the segmentation accuracy. In addition, segmentation is critical because it can reduce screening errors and aid to the identification of benign and malignant melanoma. [3,4]
+\newline
+
+Nevertheless, there are not enough experienced dermatologists all over the world. In order to solve this problem automated dermoscopy image analysis can be used. For automatic 
+analysis of skin lesion, deep learning has found the attention of the medical and engineering communities and has become a valid solution thanks to its ability to increase performance. Currently, the most popular deep learning method is the convolutional neural network (CNN)[2]. Deep convolutional neural networks (CNNs) show potential for general and highly variable tasks.
+Because of the inherent variety and complexity of skin lesions, the automatic detection of a melanoma skin cancer and its classification are very challenging tasks.
+\newline 
+
+Firstly, there are great differences in the images and that can be noticed in 
+terms of shape, size, colour, textures, contrast, and position. In addition there is a very high degree of similarity between melanoma and non-melanoma lesions. Additionally, at an early
+stage, the automatic skin lesion recognition task is hard because of to low contrast between the affected and healthy skin regions. 
+Lastly, there are many several elements of clutter, such as hair, veins, moles, freckles and coloured marks that a doctor might have used to keep track of a lesion. These elements can blur and occlude the skin cancer lesions, affecting the recognition performance. 
+A pre-processing initial step can augment the information inside the images and reduce noise.[5]
+\newline
+
+In this paper we implement a segmentation algorithm for skin lesions using a CNN, using a U-Net architecture. The U-Net architecture was developed for biomedical image segmentation and to date it is one of the preferred methods for image segmentation, as in most cases, with a good dataset, it is capable to deliver pixel perfect results. It therefore adapts very well to our goal.\\
+
+\chapter*{Proposed Methodology}
+\markboth{Proposed Methodology}{Proposed Methodology}
+\addcontentsline{toc}{chapter}{Proposed Methodology} 
+\setcounter{secnumdepth}{0}
+
+Figure 2 shows our U-Net architecture. It is a convolutional network architecture for fast and precise segmentation of images. The two main aspects of the model are:
+\\\begin{itemize}
+\item symmetry;
+\item connections between the downsampling and the upsampling paths to retain high frequency information for the upsampling path.
+\end{itemize}
+\vspace{5mm}
+\begin{figure}[ht]
+\begin{center}
+ \includegraphics[height=14cm, width=14cm,keepaspectratio]{U-net-architecture.png}
+\caption{UNet Architecture}
+\label{fig:uneta}
+\end{center}
+\end{figure}
+
+The connections, \textit {grey arrows in \figurename~\ref{fig:uneta}}, provide local information to the global information while upsampling. The result of this symmetry is that the network has a larger number of feature maps in the upsampling path, which allows to transfer information.
+The input data is propagated in the network along all possible path and at the end, the segmentation map comes out.[6,7,8] 
+In \figurename~\ref{fig:uneta} is possible to highlight a contracting (\textit {the half left part}) and an expanding path (\textit {the half right part}).\\
+A detailed explanation is performed in the section \textit {'Model'}.\\
+\newline
+
+\addcontentsline{toc}{section}{Data} 
+{\LARGE{\bf Data}}\\
+
+We used "ISIC 2018" Archive, ISIC stands for \textit {International Skin Imaging Collaboration} and it is an international attempt at improving melanoma diagnosis. The ISIC Archive contains the largest publicly available collection of quality controlled images of skin lesions.
+\newline
+
+The dataset comprises of $\approx$2600 images acquired with a variety of dematoscope types, from different anatomic sites, from samples of patients of different institutions and clinical centers, with a big variety of devices. To ensure a relevant and representative sample, the images were collected internationally.[9] The images inside ISIC Dataset have various levels of compression, occlusions, contrast, brightness and markers.\\
+They are all paired with binary masks which can be used as ground truth for our segmentation algorithm. Binary masks because there are only two values in the mask images: one and zero, 
+where the ones indicate the lesion and zeros represent background \textit {(the normal skin)}.\\
+
+\begin{figure}[h!]
+\begin{center}
+   \includegraphics[width=55mm]{skin_mask1.png}
+   \includegraphics[width=55mm]{skin_mask2.png}
+   \includegraphics[width=55mm]{skin_mask3.png}
+   \includegraphics[width=55mm]{skin_mask4.png}
+  \includegraphics[width=55mm]{skin_mask5.png}
+ \caption{Skin lesions and their relative masks}
+\label{fig:skinlesionmasks}
+\end{center}
+\end{figure}
+
+\figurename~\ref{fig:skinlesionmasks} shows images and their associated masks.
+Since the original images' size are too big, to reduce resource usage (resizing images for each task) and for practical problems we created our dataset, that takes random images 
+from the ISIC Archive, re-sized to $256 × 256$. 
+The dimension of this new dataset is 1430 images, then the total dataset is split out in training and validation datasets.\\
+Before using the images a pre-processeing phase is implemented to randomise colour contrast.
+\newline
+%\newpage
+\addcontentsline{toc}{section}{Model} 
+{\LARGE{\bf Model}}\\
+
+Looking \figurename~\ref{fig:uneta} the architecture looks like a 'U', hence the name. This architecture consists of three sections: The 
+contraction, the bottleneck, and the expansion path. U-Net architecture can be separated into three parts.[6,7,8] In detail:
+\begin{enumerate}
+\item \textit{The contracting (downsampling) path};
+\item \textit{Bottleneck};
+\item \textit{The expanding (upsampling) path}.
+\end{enumerate}
+
+To create the high-resolution segmentation map, each expansion path consists in a series of up convolution and concatenation with the corresponding high resolution features from the 
+contracting path. At the output it generates a map: the foreground and the background. Now the three blocks are examined in detail:
+\\
+\newline
+{\large{\bf Contracting (downsampling) path}}\\
+The contracting path is composed of a series of:
+\begin{itemize}
+\item 3x3 Convolution Layer + activation function (x2);
+\item 2x2 Max Pooling.
+\end{itemize}
+
+The contractioning path (also called \textit {encoder}) is used to capture the context in the image. 
+It consists of repeated application of convolution, each followed by a rectified linear unit (\textit {ReLu}) and max pooling operation. During 
+the contraction the spatial information is reduced while feature information is increased. These operations help understand \textit{'what'} is there in the image by increasing the 
+receptive field (context), but lose the information of \textit{'where'} the things are. This problem is solved in the expanding path.\\
+As we can be see from \figurename~\ref{fig:uneta} in the contracting path the height and width of the image gradually shrinks (due to max pooling). This is done to help the filter in 
+the deeper layers to focus on the context. In addition the number of channel (i.e the number of filters used) gradually increases to extract more features from the image.
+This contextual information then will be transferred to the upsampling path by connections.
+\\
+\newline
+{\large{\bf Bottleneck}}\\
+This part of the network is located between the two paths, contracting and expanding ones. The bottleneck is simply made of 2 convolution steps.
+\\
+\newline
+{\large{\bf Expanding (upsampling) path}}\\
+The expanding path is composed of a series of:
+\begin{itemize}
+\item Deconvolution layer with stride 2;
+\item Concatenation with the corresponding cropped feature map from the contracting path;
+\item 3x3 Convolution layer + activation function (x2).
+\end{itemize}
+The symmetric expanding path (also called \textit{decoder}) enables precise localization combining the feature and spatial information with a sequence of up-convolutions and 
+concatenations with high-resolution features from the contracting path. This mechanism restores the \textit{'where'} information. In this path, an up sampling of the image occures, starting from a low resolution image the architecture ends up with high resolution image. This is done with transposed convolution. Basically the transpose convolution uses the transpose 
+convolution matrix and the input arranged by column to produce the output. 
+\\
+It is interesting to highlight at the end of the structure, as you can see from \figurename~\ref{fig:uneta}, the 1x1 Convolution Layer. This is used to make the feature maps equal in number as the classes which are desired to have.[8]
+\\
+
+\addcontentsline{toc}{section}{Implementation} 
+{\LARGE{\bf Implementation}}\\
+
+Our method was implemented on an environment based on Tensorflow. The experiments were trained with: Ubuntu 19.04, processor i7 2600k CPU@ 3,4 GHz x 8 Thread, 8GB RAM 
+and a graphic card GeForce GTX 970 4GB VRAM.
+\\
+\\
+\addcontentsline{toc}{section}{Training} 
+{\LARGE{\bf Training}}\\
+
+In our project we used: input image dimension of 256x256, batch size of 24 images, 150 epochs and validation data size of 72 images. 
+We used Adam optimizer Adam is an adaptive learning rate optimization algorithm and its name is derived from \textit{adaptive moment estimation}.
+\newline
+
+Stochastic gradient descent maintains a single learning rate \textit{(alpha)} for all weight and the learning rate does not change during training. Adam algorithm instead is different 
+because it computes individual adaptive learning rates for different parameters.
+Instead of adjusting the parameter learning rates based on the average first moment (the mean), Adam also uses of the average of the second moments of the gradients 
+\textit{(uncentered variance)}.
+The algoritm uses these following parameters:
+\textit{alpha}: the learning rate;\\
+\textit{beta1}: the exponential decay rate for the first moment;\\
+\textit{beta2}: the exponential decay rate for the second-moment;\\
+\textit{epsilon}: a very small number to prevent any division by zero in the implementation (10E-8).
+\newline
+
+The algorithm calculates an exponential moving average of the gradient and the squared gradient, and the parameters beta1 and beta2 control the decay rates of these 
+moving averages.
+The default values of these parameters implemented in Tensorflow are: alpha=0.001, beta1=0.9, beta2=0, epsilon=None;
+\\
+\newpage
+\addcontentsline{toc}{section}{Accuracy, Jaccard and Dice Coefficient} 
+{\LARGE{\bf Accuracy, Jaccard and Dice Coefficient}}\\
+
+The main metrics used for the evaluation of our work:\\
+\textbf{\textit {Accuracy:}} the number of correct predictions divided by the total number of samples. \begin{center}
+\begin{equation}
+Accuracy=\frac{\textit {number of correct predictions}}{\textit {number of samples}} 
+\label{eq:acc}
+\end{equation}
+\end{center}
+
+To give a continuation with the ISIC 2018 Analysis, we studied the \textbf{\textit {Jaccard index}} implementing the \textbf{\textit {Jaccard distance}}, which compares the prediction (P) with the ground truth (G). The higher the index the more similar the two subsets are.
+\begin{center}
+\begin{equation}
+J(P,G)=\frac{ |P  \cap G | }{|P\cup G|} 
+\label{eq:jac}
+\end{equation}
+\end{center}
+
+\begin{center}
+\begin{equation}
+J_\delta(P,G)=1-J(P,G)=\frac{ {|P\cup G|} - |P  \cap G | }{|P \cup G|} 
+\label{eq:jac}
+\end{equation}
+\end{center}
+
+In image segmentation the \textbf{\textit {Dice Coefficient}} is commonly used, in particular for comparing outputs from reference mask in critical segmentation applications.  This type of metric is used to evaluate the segmentation model performance.
+It is also called the overlap index and it's computed by comparing the pixel-wise agreement between the predicted segmentation (P) and its ground truth (G).
+\begin{center}
+\begin{equation}
+DC=\frac{2*| P  \cap G | }{|P| + |G|} 
+\label{eq:dice}
+\end{equation}
+\end{center}
+
+\chapter*{Results}
+\addcontentsline{toc}{chapter}{Results} 
+\setcounter{secnumdepth}{0}
+
+To show how our proposed method works on different images, we hereby illustrate some of our segmentation results generated from some challenging images.
+
+\begin{figure}[h!]
+\begin{center}
+   \includegraphics[width=155mm]{result1.jpg}\\
+   \includegraphics[width=155mm]{result2.jpg}\\
+   \includegraphics[width=155mm]{result3.jpg}\\
+\caption{Results}
+\label{fig:results}
+\end{center}
+\end{figure}
+
+Starting from the left in \figurename~\ref{fig:results}: images with ground truth mask, predicted segmentation mask, post-processed predicted segmentation mask layered on top og the original image, difference between ground truth and post processed predicted masks. 
+In the post-processed phase we operated two different methods to reduce the artifacts (as you can see looking second and third columns).\\
+\newline
+\textit{closing}: dilation followed by an erosion;\\
+\textit{opening}: erosion followed by a dilation.\\
+
+The overall performance accuracy obtained is 94.18\%, the overall Jaccard score is 0.9697 and dice coefficient score is 0.8281.\\
+
+One can read last column of \figurename~\ref{fig:results} in this way: grey color is the common part between ground truth and post processed predicted segmentation mask, black color 
+is where our model include regions that are not present in the ground truth and white color is where the regions are present in the ground truth but our model didn't predict it.
+
+\chapter*{Discussion}
+\addcontentsline{toc}{chapter}{Discussion} 
+\setcounter{secnumdepth}{0}
+To conclude, this paper presented the U-Net architecture for segmentation of skin lesions. The choice of an U-Net CNN was due to the fact that this type of architecture was preferable 
+for bio-medical applications and it indeed delivered very valid results.
+The U-Net combines position and context information. The location information from the downsampling path are joined with the contextual information in the upsampling path. Doing this in the end the architecture predicts a good segmentation map. 
+The error in the prediction is due to the different original binary masks. 
+Since the ISIC Archive is a collection of images from different institutions. It means that multiple medics with different graphical abilities in tracing the contour produced the dataset. This reflects in the fact that not all of the original masks are created equal, sometimes they are very accurate and follow the shape of skin lesion in a rigorous way and many times they trace very rough boundaries. With a more consistent binary masks dataset, the CNN could have learned a more consistent segmentation method.\\
+
+The result achieved is often a trade off between a clear output image with only one mask for the desidered skin lesion (because sometimes our model, depending on the input image, 
+found also other skin lesions in the surrounding area) and a good result also for small skin lesions.\\
+In the figure below some tests of our model are shown.
+These test are executed on images without the ground truth, that were not involved neither in the training nor in the evaluation of the accuracy of the CNN. Our model is therefore fed with these new images and outputs a predicted mask.  We did these tests to verify our model and whether the final images were acceptable or not. 
+\newpage
+\begin{figure}[h!]
+\begin{center}
+   \includegraphics[width=155mm]{test1.jpg}\\
+   \includegraphics[width=155mm]{test2.jpg}\\
+   \includegraphics[width=155mm]{test3.jpg}\\
+\caption{Results of image without ground truth}
+\label{fig:Resultsofimagewithoutgroundtruth}
+\end{center}
+\end{figure}
+
+Images, predicted segmentation mask, post-processed predicted segmentation mask layered on top of the original images are shown respectively in the first column, second column and last column of \figurename~\ref{fig:results}. 
+The model demonstrates that artificial intelligence is capable of skin cancer segmentation with a level of competence most times comparable to dermatologists. It could therefore be a valid solution for realtime automated first time evaluation of various forms of skin cancer. In our case, especially for the tedious and time consuming individuation and segmentation task.
+
+%\begin{center}\textbf{ \textit{Figure m:} OneWeb Satellite}\end{center}
+%\begin{figure}[h!]
+%  \centering
+%\includegraphics[height=7cm, width=7cm,keepaspectratio]{oneweb.png}
+%\end{figure}
+
+%USE THIS FORMAT TO USE FIGURE
+%\begin{figure}[ht]
+%\begin{center}
+% \includegraphics[height=7cm, width=7cm,keepaspectratio]{oneweb.png}
+%\caption{Dummy figure 1}
+%\label{fig:dum1}
+%\end{center}
+%\end{figure}
+
+%\begin{figure}[h!]
+%\begin{center}\textbf{ \textit{Figure i:}left: Sat-RN; right: Sat-eNB }\end{center}
+  %\centering
+  %\includegraphics[width=30mm]{Constellation_LEOSAT.jpg}
+  %\includegraphics[width=30mm]{Constellation_LEOSAT.jpg}
+%   \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}
+%    \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}
+     
+   %\caption{Constellation LEOSAT}
+%\label{fig:Constellation LEOSAT}
+%\end{figure}
+
+%\begin{figure*}[h!]
+%\begin{multicols}{3}
+ %    \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}\par 
+%   \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}\par 
+%   \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}\par 
+
+%    \end{multicols}
+%     \caption{Constellation LEOSAT}
+%\label{fig:Constellation LEOSAT}
+%\begin{multicols}{2}
+%     \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}\par 
+%   \includegraphics[width=30mm]{Constellation_LEOSAT.jpg}\par 
+%    \end{multicols}
+% \caption{Constellation2 LEOSAT}
+%\label{fig:Constellation2 LEOSAT}
+
+%\end{figure*}
+
+
+\setcounter{chapter}{0}
+\renewcommand{\chaptername}{}
+\renewcommand{\thechapter}{{Biography}}
+\chapter{}
+[1]https://www.airc.it/cancro/informazioni-tumori/guida-ai-tumori/melanoma-cutaneo.\\
+
+[2]https://www.airc.it/cancro/informazioni-tumori/guida-ai-tumori/tumore-della-pelle.\\
+
+[3]Amirreza Rezvantalab, Habib Safigholi, Somayeh Karimijeshni: Dermatologist Level Dermoscopy Skin Cancer Classification Using Different Deep Learning Convolutional Neural 
+Networks Algorithms.\\
+
+[4]Hao Chang: Skin cancer reorganization and classification with deep neural network.\\
+
+[5]Joshua P. Ebenezer ,Jagath C. Rajapakse: Automatic segmentation of skin lesions using deep learning, july 2018\\
+
+[6]https://towardsdatascience.com/U-Net-b229b32b4a71\\
+
+[7]https://lmb.informatik.uni-freiburg.de/people/ronneber/U-Net/\\
+
+[8]Olaf Ronneberger, Philipp Fischer, and Thomas Brox: U-Net: Convolutional Networks for Biomedical Image Segmentation, may 2015.\\
+
+[9]https://challenge2018.isic-archive.com\\
+
+
+\cleardoublepage
+% \phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{\listtablename}
+%\listoftables 
+
+%%%end
+\end{document}
+
+
+
+7V
